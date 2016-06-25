@@ -1,0 +1,26 @@
+{
+  "name": "@resin/sbvr-compiler",
+  "version": "1.0.0",
+  "description": "An easy way to use the compile chain from SBVR to SQL.",
+  "main": "bin/sbvr-compiler.js",
+  "bin": "bin/run-cli.js",
+  "scripts": {
+    "lint": "resin-lint src",
+    "pretest": "npm run prepublish",
+    "test": "npm run lint",
+    "prepublish": "npm run lint && coffee --output bin --compile src"
+  },
+  "repository": "git@bitbucket.org:rulemotion/abstract-sql-compiler.git",
+  "author": "",
+  "dependencies": {
+    "@resin/abstract-sql-compiler": "^2.0.0",
+    "@resin/lf-to-abstract-sql": "^0.0.17",
+    "@resin/sbvr-parser": "^0.0.23",
+    "@resin/sbvr-types": "^1.2.0",
+    "commander": "^2.9.0"
+  },
+  "devDependencies": {
+    "coffee-script": "~1.10.0",
+    "resin-lint": "^1.4.0"
+  }
+}
