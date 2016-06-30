@@ -10,7 +10,7 @@
     "test": "npm run lint",
     "prepublish": "npm run lint && coffee --output bin --compile src"
   },
-  "repository": "git@bitbucket.org:rulemotion/abstract-sql-compiler.git",
+  "repository": "https://github.com/resin-io-modules/abstract-sql-compiler.git",
   "author": "",
   "dependencies": {
     "@resin/abstract-sql-compiler": "^2.0.0",
