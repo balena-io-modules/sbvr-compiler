@@ -1,3 +1,5 @@
+v1.1.0
+
 * Update sbvr-parser to ^0.0.26 and lf-to-abstract-sql to ^0.0.19
 
 v1.0.1
