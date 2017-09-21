@@ -1,11 +1,23 @@
 program = require 'commander'
+fs = require('fs')
+
+getSE = (inputFile) ->
+	return fs.readFileSync(inputFile, 'utf8')
+
+run = (method) ->
+	return (inputFile, outputFile) ->
+		seModel = getSE(inputFile)
+		result = require('./sbvr-compiler')[method](seModel, program.engine)
+		json = JSON.stringify(result, null, 2)
+		if outputFile
+			fs.writeFileSync(outputFile, json)
+		else
+			console.log(json)
 
 runCompile = (inputFile, outputFile) ->
 	sbvrCompiler = require './sbvr-compiler'
-	fs = require 'fs'
-
-	seModel = fs.readFileSync(inputFile, 'utf8')
-	sqlModel = sbvrCompiler(seModel, program.engine)
+	seModel = getSE(inputFile)
+	sqlModel = sbvrCompiler.compile(seModel, program.engine)
 
 	writeLn =
 		if outputFile
@@ -39,6 +51,14 @@ runCompile = (inputFile, outputFile) ->
 program
 	.version(require('../package.json').version)
 	.option('-e, --engine <engine>', 'The target database engine (postgres|websql|mysql), default: postgres', /postgres|websql|mysql/, 'postgres')
+
+program.command('parse <input-file> [output-file]')
+	.description('parse the input SBVR file into LF')
+	.action(run('parse'))
+
+program.command('transform <input-file> [output-file]')
+	.description('transform the input SBVR file into abstract SQL')
+	.action(run('transform'))
 
 program.command('compile <input-file> [output-file]')
 	.description('compile the input SBVR file into SQL')

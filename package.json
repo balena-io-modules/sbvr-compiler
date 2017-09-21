@@ -13,14 +13,14 @@
   "repository": "https://github.com/resin-io-modules/abstract-sql-compiler.git",
   "author": "",
   "dependencies": {
-    "@resin/abstract-sql-compiler": "^2.3.1",
+    "@resin/abstract-sql-compiler": "^3.0.0",
     "@resin/lf-to-abstract-sql": "^1.0.0",
     "@resin/sbvr-parser": "^0.1.0",
     "@resin/sbvr-types": "^1.2.0",
-    "commander": "^2.9.0"
+    "commander": "^2.11.0"
   },
   "devDependencies": {
-    "coffee-script": "~1.12.2",
-    "resin-lint": "^1.4.0"
+    "coffee-script": "^1.12.7",
+    "resin-lint": "^1.4.2"
   }
 }

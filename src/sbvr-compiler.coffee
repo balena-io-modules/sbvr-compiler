@@ -15,24 +15,38 @@ ExtendedSBVRParser = SBVRParser._extend
 		return this
 LF2AbstractSQLTranslator = LF2AbstractSQL.createTranslator(sbvrTypes)
 
-module.exports = (seModel, engine) ->
+compile = (seModel, engine) ->
+	abstractSqlModel = exports.transform(seModel)
 	try
-		lfModel = ExtendedSBVRParser.matchAll(seModel, 'Process')
-	catch e
-		e.message = "Error parsing SBVR into LF: #{e.message}"
-		throw e
-
-	try
-		abstractSqlModel = LF2AbstractSQLTranslator(lfModel, 'Process')
-	catch e
-		e.message = "Error transforming LF into AbstractSQL: #{e.message}"
-		throw e
-
-	try
-		sqlModel = AbstractSQLCompiler[engine].compileSchema(abstractSqlModel)
+		return AbstractSQLCompiler[engine].compileSchema(abstractSqlModel)
 	catch e
 		e.message = "Error compiling AbstractSQL into SQL: #{e.message}"
 		throw e
 
-	return sqlModel
+# Export compile both as `.compile` and directly for backwards compatibility
+module.exports = exports = compile
+exports.compile = compile
+
+exports.parse = (seModel) ->
+	try
+		return ExtendedSBVRParser.matchAll(seModel, 'Process')
+	catch e
+		e.message = "Error parsing SBVR into LF: #{e.message}"
+		throw e
+
+exports.transform = (seModel) ->
+	lfModel = exports.parse(seModel)
+	try
+		return LF2AbstractSQLTranslator(lfModel, 'Process')
+	catch e
+		e.message = "Error transforming LF into AbstractSQL: #{e.message}"
+		throw e
+
+exports.compile = (seModel, engine) ->
+	abstractSqlModel = exports.transform(seModel)
+	try
+		return AbstractSQLCompiler[engine].compileSchema(abstractSqlModel)
+	catch e
+		e.message = "Error compiling AbstractSQL into SQL: #{e.message}"
+		throw e
 

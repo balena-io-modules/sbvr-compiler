@@ -1,3 +1,5 @@
+* Add the ability to output the intermediate models
+
 v1.2.0
 
 * Update dependencies to match PineJS v5.x.x
