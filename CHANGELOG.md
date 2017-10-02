@@ -1,3 +1,5 @@
+v1.3.0
+
 * Add the ability to output the intermediate models
 
 v1.2.0
