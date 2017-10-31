@@ -50,3 +50,10 @@ exports.compile = (seModel, engine) ->
 		e.message = "Error compiling AbstractSQL into SQL: #{e.message}"
 		throw e
 
+exports.migrate = (seSrc, seDst, engine) ->
+	abstractSqlSrc = exports.transform(seSrc)
+	abstractSqlDst = exports.transform(seDst)
+	try
+		return AbstractSQLCompiler[engine].diffSchemas(abstractSqlSrc, abstractSqlDst)
+	catch e
+		e.message = "Error diffing AbstractSQL schemas: #{e.message}"

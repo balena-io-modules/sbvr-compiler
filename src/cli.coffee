@@ -14,6 +14,16 @@ run = (method) ->
 		else
 			console.log(json)
 
+runMigrate = (srcFile, dstFile, outputFile) ->
+	sbvrCompiler = require './sbvr-compiler'
+	seSrc = getSE(srcFile)
+	seDst = getSE(dstFile)
+	migration = sbvrCompiler.migrate(seSrc, seDst, program.engine).join('\n')
+	if outputFile
+		fs.writeFileSync(outputFile, migration)
+	else
+		console.log(migration)
+
 runCompile = (inputFile, outputFile) ->
 	sbvrCompiler = require './sbvr-compiler'
 	seModel = getSE(inputFile)
@@ -63,6 +73,11 @@ program.command('transform <input-file> [output-file]')
 program.command('compile <input-file> [output-file]')
 	.description('compile the input SBVR file into SQL')
 	.action(runCompile)
+
+program.command('migrate <previous-model> <current-model> [output-file]')
+	.description('attempts to generate a migration between two SBVR models
+	')
+	.action(runMigrate)
 
 program.command('help')
 	.description('print the help')
