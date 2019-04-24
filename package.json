@@ -1,5 +1,5 @@
 {
-  "name": "@resin/sbvr-compiler",
+  "name": "@balena.io/sbvr-compiler",
   "version": "1.4.0",
   "description": "An easy way to use the compile chain from SBVR to SQL.",
   "main": "bin/sbvr-compiler.js",
