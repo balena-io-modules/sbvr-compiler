@@ -1,6 +1,6 @@
 {
   "name": "@balena.io/sbvr-compiler",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "An easy way to use the compile chain from SBVR to SQL.",
   "main": "bin/sbvr-compiler.js",
   "bin": "bin/run-cli.js",
